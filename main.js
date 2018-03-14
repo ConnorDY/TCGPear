@@ -69,7 +69,7 @@ function loadDataLocal()
 {
 	if (typeof(Storage) !== undefined)
 	{
-		$("#numRounds").val(localStorage.numRounds);
+		if (localStorage.getItem("numRounds") !== null) $("#numRounds").val(localStorage.numRounds);
 	}
 }
 
