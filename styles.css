@@ -1,0 +1,71 @@
+body
+{
+	margin: 0;
+}
+
+br.tall
+{
+	display: block;
+	margin-top: 4px;
+	content: " ";
+}
+
+/*
+* Header and Tabs
+*/
+#header, #headings
+{
+	width: 100%;
+}
+
+#headings>td:not(#notif)
+{
+	
+	width: 180px;
+}
+
+#notif
+{
+	text-align: right;
+	padding-right: 4px;
+}
+
+.tabButton
+{
+	width: 100%;
+}
+
+.tabButton.select
+{
+	border: 2px solid #0000FF;
+}
+
+#main
+{
+	width: 100%;
+}
+
+.tab
+{
+	margin: 4px 4px 4px 4px;
+}
+
+.tab.hidden
+{
+	display: none;
+}
+
+/*
+* Tab Contents
+*/
+
+/* Players Tab */
+#tabPlayers>table, #tabPlayers>table>tr
+{
+	width: 100%;
+}
+
+#playerListTable
+{
+	width: 100%;
+}

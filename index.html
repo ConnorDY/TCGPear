@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>TCGPear</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+		<script src="./main.js"></script>
+		<link rel="stylesheet" type="text/css" href="./styles.css">
+	</head>
+	<body>
+		<table id="header">
+			<tr id="headings">
+				<td><input type="button" id="bTab1" class="tabButton select" value="Event Info"></td>
+				<td><input type="button" id="bTab2" class="tabButton" value="Players"></td>
+				<td><input type="button" id="bTab3" class="tabButton" value="Round"></td>
+				<td><input type="button" id="bTab4" class="tabButton" value="Standings"></td>
+				<td id="notif">Last saved: never</td>
+			</tr>
+		</table>
+		<div id="main">
+			<div id="tabEvent" class="tab">
+				Number of Rounds:
+				<select id="numRounds">
+				</select>
+			</div>
+			<div id="tabPlayers" class="tab hidden">
+				<table><tr>
+					<td id="addPlayer" valign="top">
+						<b>Add Player:</b><br />
+						First Name: <input type="text" id="playerFirstName"><br class="tall" />
+						Last Name: <input type="text" id="playerLastName"><br class="tall" />
+						<input type="button" value="Add" id="bAddPlayer">
+					</td>
+					<td id="playerList" valign="top">
+						<b>Current Players</b>
+						<table id="playerListTable">
+						</table>
+					</td>
+				</tr></table>
+			</div>
+			<div id="tabRound" class="tab hidden">
+				
+			</div>
+			<div id="tabStandings" class="tab hidden">
+				
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			init();
+		</script>
+	</body>
+</html>
