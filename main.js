@@ -36,6 +36,7 @@ function saveDataLocal()
 	{
 		localStorage.numRounds = $("#numRounds").val();
 		localStorage.activeTab = JSON.stringify(activeTab);
+		localStorage.players = JSON.stringify(players);
 
 		/*
 		* Get time and convert it into HH:MM:SS (12 hr format)
@@ -77,18 +78,28 @@ function loadDataLocal()
 		if (localStorage.getItem("numRounds") !== null) $("#numRounds").val(localStorage.numRounds);
 		if (localStorage.getItem("activeTab") !== null)
 		{
-			activeTab = JSON.parse(localStorage.activeTab);
-			showTab(activeTab[0], activeTab[1]);
+			var loadTab = JSON.parse(localStorage.activeTab);
+			showTab(loadTab[0], loadTab[1]);
+		}
+		if (localStorage.getItem("players") !== null)
+		{
+			var loadPlayers = JSON.parse(localStorage.players);
+			for (var i = 0; i < loadPlayers.length; i++)
+				addPlayer(loadPlayers[i]);
 		}
 	}
 }
 
-function addPlayer()
+function addPlayer(player = null)
 {
-	if ($("#playerFirstName").val().trim() == "") return 0;
-	if ($("#playerLastName").val().trim() == "") return 0;
+	if (player === null)
+	{
+		if ($("#playerFirstName").val().trim() == "") return 0;
+		if ($("#playerLastName").val().trim() == "") return 0;
 
-	var player = new Array(pid, $("#playerFirstName").val().trim(), $("#playerLastName").val().trim());
+		player = new Array(pid, $("#playerFirstName").val().trim(), $("#playerLastName").val().trim());
+	}
+
 	players.push(player);
 	pid++;
 
