@@ -1,6 +1,8 @@
 var players = new Array();
 var pid = 0;
 
+var activeTab = new Array("Event", 1);
+
 function init()
 {
 	$("#bTab1").click(function() {showTab("Event", 1);});
@@ -24,6 +26,8 @@ function showTab(tab, button)
 	$("#tab"+tab).removeClass("hidden");
 	$(".tabButton").removeClass("select");
 	$("#bTab"+button).addClass("select");
+
+	activeTab = new Array(tab, button);
 }
 
 function saveDataLocal()
@@ -31,6 +35,7 @@ function saveDataLocal()
 	if (typeof(Storage) !== undefined)
 	{
 		localStorage.numRounds = $("#numRounds").val();
+		localStorage.activeTab = JSON.stringify(activeTab);
 
 		/*
 		* Get time and convert it into HH:MM:SS (12 hr format)
@@ -70,6 +75,11 @@ function loadDataLocal()
 	if (typeof(Storage) !== undefined)
 	{
 		if (localStorage.getItem("numRounds") !== null) $("#numRounds").val(localStorage.numRounds);
+		if (localStorage.getItem("activeTab") !== null)
+		{
+			activeTab = JSON.parse(localStorage.activeTab);
+			showTab(activeTab[0], activeTab[1]);
+		}
 	}
 }
 
