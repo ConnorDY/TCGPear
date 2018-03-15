@@ -103,7 +103,19 @@ function addPlayer(player = null)
 	players.push(player);
 	pid++;
 
-	$("#playerListTable").append('<tr id="p'+player[0]+'"><td>'+player[1]+' '+player[2]+'</td></tr>');
+	$("#playerListTable").append('<tr id="p'+player[0]+'"><td>'+player[1]+' '+player[2]+'</td><td><input class="bEditPlayer" id="bEditP'+player[0]+'" type="button" value="Edit/Drop"></td></tr>');
 	$("#playerFirstName").val("");
 	$("#playerLastName").val("");
+
+	$("#bEditP"+player[0]).click(function() {popupEditPlayer(player[0]);});
+}
+
+function popupEditPlayer(player)
+{
+	var p = players[player];
+
+	$("#editPlayer").css("display", "block");
+
+	$("#editPlayerFirstName").val(p[1]);
+	$("#editPlayerLastName").val(p[2]);
 }
