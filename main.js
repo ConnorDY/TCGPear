@@ -10,12 +10,13 @@ function init()
 	$("#bTab3").click(function() {showTab("Round", 3);});
 	$("#bTab4").click(function() {showTab("Standings", 4);});
 
+	$("#bAddPlayer").click(function() {addPlayer();});
+	$("#bCancelEdit").click(function() {hideEditPlayer();});
+	$("#bUpdatePlayer").click(function() {editPlayer();});
+	$("#bDropPlayer").click(function(){dropPlayer();});
+
 	for (var i = 1; i <= 30; i++)
 		$("#numRounds").append('<option value="'+i+'">'+i+'</option>');
-
-	$("#bAddPlayer").click(function() {addPlayer();});
-
-	$("#bCancelEdit").click(function() {hideEditPlayer();});
 
 	// Load data and set auto-save to every 5 seconds
 	loadDataLocal();
@@ -92,6 +93,16 @@ function loadDataLocal()
 	}
 }
 
+function getPlayerIndex(id)
+{
+	for (var i = 0; i < players.length; i++)
+	{
+		if (players[i][0] == id) return i;
+	}
+
+	return -1;
+}
+
 function addPlayer(player = null)
 {
 	if (player === null)
@@ -112,12 +123,13 @@ function addPlayer(player = null)
 	$("#bEditP"+player[0]).click(function() {popupEditPlayer(player[0]);});
 }
 
-function popupEditPlayer(player)
+function popupEditPlayer(id)
 {
-	var p = players[player];
+	var p = players[getPlayerIndex(id)];
 
 	$("#editPlayer").css("display", "block");
 
+	$("#editPlayerID").val(p[0]);
 	$("#editPlayerFirstName").val(p[1]);
 	$("#editPlayerLastName").val(p[2]);
 }
@@ -125,4 +137,26 @@ function popupEditPlayer(player)
 function hideEditPlayer()
 {
 	$("#editPlayer").css("display", "none");
+}
+
+function editPlayer()
+{
+	var id = $("#editPlayerID").val();
+	var index = getPlayerIndex(id);
+
+	players[index][1] = $("#editPlayerFirstName").val();
+	players[index][2] = $("#editPlayerLastName").val();
+
+	$("#p"+id+">td:first-child").html(players[index][1]+" "+players[index][2]);
+
+	hideEditPlayer();
+}
+
+function dropPlayer()
+{
+	var id = $("#editPlayerID").val();
+	players.splice(getPlayerIndex(id), 1);
+	$("#p"+id).remove();
+
+	hideEditPlayer();
 }
