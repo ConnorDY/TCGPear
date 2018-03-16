@@ -15,8 +15,10 @@ function init()
 
 	$("#bAddPlayer").click(function() {addPlayer();});
 
-	loadDataLocal();
+	$("#bCancelEdit").click(function() {hideEditPlayer();});
 
+	// Load data and set auto-save to every 5 seconds
+	loadDataLocal();
 	setInterval(function() {saveDataLocal();}, 5000);
 }
 
@@ -118,4 +120,9 @@ function popupEditPlayer(player)
 
 	$("#editPlayerFirstName").val(p[1]);
 	$("#editPlayerLastName").val(p[2]);
+}
+
+function hideEditPlayer()
+{
+	$("#editPlayer").css("display", "none");
 }

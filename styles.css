@@ -10,6 +10,12 @@ br.tall
 	content: " ";
 }
 
+.spacer1
+{
+	width: 1px;
+	height: 10px;
+}
+
 /*
 * Header and Tabs
 */
@@ -78,8 +84,8 @@ br.tall
 {
 	display: none;
 
-	width: 300px;
-	height: 160px;
+	width: 260px;
+	height: 132px;
 
 	border: 2px solid #DEDEDE;
 
@@ -94,8 +100,20 @@ br.tall
 
 #editPlayer>.inner
 {
-	width: calc(100% - 12px);
-	height: calc(100% - 20px);
+	width: calc(100% - 16px);
+	height: calc(100% - 12px);
 
-	padding: 12px 6px 8px 6px;
+	padding: 6px 8px 6px 8px;
+
+	position: relative;
+}
+
+#cancelEdit
+{
+	position: absolute;
+	top: 4px;
+	right: 4px;
+
+	width: 30px;
+	height: 23px;
 }
