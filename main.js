@@ -10,6 +10,8 @@ function init()
 	$("#bTab3").click(function() {showTab("Round", 3);});
 	$("#bTab4").click(function() {showTab("Standings", 4);});
 
+	$("#bCloseSession").click(function() {closeSession();});
+
 	$("#bAddPlayer").click(function() {addPlayer();});
 	$("#bCancelEdit").click(function() {hideEditPlayer();});
 	$("#bUpdatePlayer").click(function() {editPlayer();});
@@ -93,6 +95,15 @@ function loadDataLocal()
 	}
 }
 
+function closeSession()
+{
+	var choice = confirm("Are you sure you want to close this session?\n\nAll session data will be lost and program defaults will be restored.");
+	if (!choice) return 0;
+
+	localStorage.clear();
+	location.reload();
+}
+
 function getPlayerIndex(id)
 {
 	for (var i = 0; i < players.length; i++)
@@ -154,6 +165,9 @@ function editPlayer()
 
 function dropPlayer()
 {
+	var choice = confirm("Are you sure you want to drop this player?");
+	if (!choice) return 0;
+
 	var id = $("#editPlayerID").val();
 	players.splice(getPlayerIndex(id), 1);
 	$("#p"+id).remove();
