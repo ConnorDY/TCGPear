@@ -12,6 +12,8 @@ function init()
 
 	$("#bCloseSession").click(function() {closeSession();});
 
+	$("#matchType").change(function() {changeMatchType();});
+
 	$("#bAddPlayer").click(function() {addPlayer();});
 	$("#bCancelEdit").click(function() {hideEditPlayer();});
 	$("#bUpdatePlayer").click(function() {editPlayer();});
@@ -19,6 +21,9 @@ function init()
 
 	for (var i = 1; i <= 30; i++)
 		$("#numRounds").append('<option value="'+i+'">'+i+'</option>');
+
+	for (var i = 2; i <= 10; i++)
+		$("#podSize").append('<option value="'+i+'">'+i+'</option>');
 
 	// Load data and set auto-save to every 5 seconds
 	loadDataLocal();
@@ -39,7 +44,10 @@ function saveDataLocal()
 {
 	if (typeof(Storage) !== undefined)
 	{
+		localStorage.eventName = $("#eventName").val();
 		localStorage.numRounds = $("#numRounds").val();
+		localStorage.matchType = $("#matchType").val();
+		localStorage.podSize = $("#podSize").val();
 		localStorage.activeTab = JSON.stringify(activeTab);
 		localStorage.players = JSON.stringify(players);
 
@@ -80,7 +88,14 @@ function loadDataLocal()
 {
 	if (typeof(Storage) !== undefined)
 	{
+		if (localStorage.getItem("eventName") !== null) $("#eventName").val(localStorage.eventName);
 		if (localStorage.getItem("numRounds") !== null) $("#numRounds").val(localStorage.numRounds);
+		if (localStorage.getItem("matchType") !== null)
+		{
+			$("#matchType").val(localStorage.matchType);
+			changeMatchType();
+		}
+		if (localStorage.getItem("podSize") != null) $("#podSize").val(localStorage.podSize);
 		if (localStorage.getItem("activeTab") !== null)
 		{
 			var loadTab = JSON.parse(localStorage.activeTab);
@@ -102,6 +117,14 @@ function closeSession()
 
 	localStorage.clear();
 	location.reload();
+}
+
+function changeMatchType()
+{
+	var type = $("#matchType").val();
+
+	if (Number(type) != 0) $("#defaultTeamPodSize").css("display", "block");
+	else $("#defaultTeamPodSize").css("display", "none");
 }
 
 function getPlayerIndex(id)

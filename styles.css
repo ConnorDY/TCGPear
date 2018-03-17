@@ -24,6 +24,12 @@ br.tall
 	width: 100%;
 }
 
+#header
+{
+	border-bottom: 2px solid #555555;
+	background-color: #DDDDDD;
+}
+
 #headings>td:not(#notif):not(#closeSession)
 {
 	
@@ -47,6 +53,9 @@ br.tall
 .tabButton
 {
 	width: 100%;
+
+	background-color: #FFFFFF;
+	border: 2px solid #AAAAAA;
 }
 
 .tabButton.select
@@ -72,6 +81,17 @@ br.tall
 /*
 * Tab Contents
 */
+
+/* Event Tab */
+#eventName
+{
+	width: 256px;
+}
+
+#defaultTeamPodSize
+{
+	display: none;
+}
 
 /* Players Tab */
 #tabPlayers>table, #tabPlayers>table>tr
