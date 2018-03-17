@@ -2,6 +2,7 @@ var players = new Array();
 var pid = 0;
 
 var activeTab = new Array("Event", 1);
+var autoSave = null;
 
 function init()
 {
@@ -27,7 +28,7 @@ function init()
 
 	// Load data and set auto-save to every 5 seconds
 	loadDataLocal();
-	setInterval(function() {saveDataLocal();}, 5000);
+	autoSave = setInterval(function() {saveDataLocal();}, 5000);
 }
 
 function showTab(tab, button)
@@ -115,6 +116,8 @@ function closeSession()
 	var choice = confirm("Are you sure you want to close this session?\n\nAll session data will be lost and program defaults will be restored.");
 	if (!choice) return 0;
 
+	clearInterval(autoSave);
+	$("#mainForm")[0].reset();
 	localStorage.clear();
 	location.reload();
 }
