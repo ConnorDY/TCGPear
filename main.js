@@ -129,7 +129,7 @@ function closeSession()
 
 	clearInterval(autoSave);
 	$("#mainForm")[0].reset();
-	localStorage.event = null;
+	localStorage.removeItem("event");
 	location.reload();
 }
 
@@ -161,8 +161,9 @@ function addPlayer(player = null)
 		player = [pid, $("#playerFirstName").val().trim(), $("#playerLastName").val().trim()];
 
 		eventData["players"].push(player);
-		pid++;
 	}
+
+	pid++;
 
 	$("#playerListTable").append('<tr id="p'+player[0]+'"><td>'+player[1]+' '+player[2]+'</td><td><input class="bEditPlayer" id="bEditP'+player[0]+'" type="button" value="Edit/Drop"></td></tr>');
 	$("#playerFirstName").val("");
