@@ -1,7 +1,10 @@
-var players = new Array();
+var players = {};
 var pid = 0;
 
-var activeTab = new Array("Event", 1);
+var eventData = {};
+eventData["players"] = [];
+
+var activeTab = ["Event", 1];
 var autoSave = null;
 
 function init()
@@ -38,19 +41,20 @@ function showTab(tab, button)
 	$(".tabButton").removeClass("select");
 	$("#bTab"+button).addClass("select");
 
-	activeTab = new Array(tab, button);
+	activeTab = [tab, button];
 }
 
 function saveDataLocal()
 {
+	eventData["eventName"] = $("#eventName").val();
+	eventData["numRounds"] = $("#numRounds").val();
+	eventData["matchType"] = $("#matchType").val();
+	eventData["podSize"] = $("#podSize").val();
+	eventData["activeTab"] = activeTab;
+
 	if (typeof(Storage) !== undefined)
 	{
-		localStorage.eventName = $("#eventName").val();
-		localStorage.numRounds = $("#numRounds").val();
-		localStorage.matchType = $("#matchType").val();
-		localStorage.podSize = $("#podSize").val();
-		localStorage.activeTab = JSON.stringify(activeTab);
-		localStorage.players = JSON.stringify(players);
+		localStorage.event = JSON.stringify(eventData);
 
 		/*
 		* Get time and convert it into HH:MM:SS (12 hr format)
@@ -89,24 +93,31 @@ function loadDataLocal()
 {
 	if (typeof(Storage) !== undefined)
 	{
-		if (localStorage.getItem("eventName") !== null) $("#eventName").val(localStorage.eventName);
-		if (localStorage.getItem("numRounds") !== null) $("#numRounds").val(localStorage.numRounds);
-		if (localStorage.getItem("matchType") !== null)
+		if (localStorage.getItem("event") !== null && localStorage.getItem("event") != "[]")
 		{
-			$("#matchType").val(localStorage.matchType);
+			eventData = JSON.parse(localStorage.event);
+
+			$("#eventName").val(eventData["eventName"]);
+			$("#numRounds").val(eventData["numRounds"]);
+
+			$("#matchType").val(eventData["matchType"]);
 			changeMatchType();
-		}
-		if (localStorage.getItem("podSize") != null) $("#podSize").val(localStorage.podSize);
-		if (localStorage.getItem("activeTab") !== null)
-		{
-			var loadTab = JSON.parse(localStorage.activeTab);
-			showTab(loadTab[0], loadTab[1]);
-		}
-		if (localStorage.getItem("players") !== null)
-		{
-			var loadPlayers = JSON.parse(localStorage.players);
-			for (var i = 0; i < loadPlayers.length; i++)
-				addPlayer(loadPlayers[i]);
+
+			$("#podSize").val(eventData["podSize"]);
+
+			if (eventData["activeTab"] !== null)
+			{
+				var loadTab = eventData["activeTab"];
+				showTab(loadTab[0], loadTab[1]);
+			}
+
+			if (eventData["players"] !== null)
+			{
+				for (var i = 0; i < eventData["players"].length; i++)
+				{
+					addPlayer(eventData["players"][i]);
+				}
+			}
 		}
 	}
 }
@@ -118,7 +129,7 @@ function closeSession()
 
 	clearInterval(autoSave);
 	$("#mainForm")[0].reset();
-	localStorage.clear();
+	localStorage.event = null;
 	location.reload();
 }
 
@@ -132,9 +143,9 @@ function changeMatchType()
 
 function getPlayerIndex(id)
 {
-	for (var i = 0; i < players.length; i++)
+	for (var i = 0; i < eventData["players"].length; i++)
 	{
-		if (players[i][0] == id) return i;
+		if (eventData["players"][i][0] == id) return i;
 	}
 
 	return -1;
@@ -147,11 +158,11 @@ function addPlayer(player = null)
 		if ($("#playerFirstName").val().trim() == "") return 0;
 		if ($("#playerLastName").val().trim() == "") return 0;
 
-		player = new Array(pid, $("#playerFirstName").val().trim(), $("#playerLastName").val().trim());
-	}
+		player = [pid, $("#playerFirstName").val().trim(), $("#playerLastName").val().trim()];
 
-	players.push(player);
-	pid++;
+		eventData["players"].push(player);
+		pid++;
+	}
 
 	$("#playerListTable").append('<tr id="p'+player[0]+'"><td>'+player[1]+' '+player[2]+'</td><td><input class="bEditPlayer" id="bEditP'+player[0]+'" type="button" value="Edit/Drop"></td></tr>');
 	$("#playerFirstName").val("");
@@ -162,7 +173,7 @@ function addPlayer(player = null)
 
 function popupEditPlayer(id)
 {
-	var p = players[getPlayerIndex(id)];
+	var p = eventData["players"][getPlayerIndex(id)];
 
 	$("#editPlayer").css("display", "block");
 
@@ -181,10 +192,10 @@ function editPlayer()
 	var id = $("#editPlayerID").val();
 	var index = getPlayerIndex(id);
 
-	players[index][1] = $("#editPlayerFirstName").val();
-	players[index][2] = $("#editPlayerLastName").val();
+	eventData["players"][index][1] = $("#editPlayerFirstName").val();
+	eventData["players"][index][2] = $("#editPlayerLastName").val();
 
-	$("#p"+id+">td:first-child").html(players[index][1]+" "+players[index][2]);
+	$("#p"+id+">td:first-child").html(eventData["players"][index][1]+" "+eventData["players"][index][2]);
 
 	hideEditPlayer();
 }
@@ -195,7 +206,7 @@ function dropPlayer()
 	if (!choice) return 0;
 
 	var id = $("#editPlayerID").val();
-	players.splice(getPlayerIndex(id), 1);
+	eventData["players"].splice(getPlayerIndex(id), 1);
 	$("#p"+id).remove();
 
 	hideEditPlayer();
