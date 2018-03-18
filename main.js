@@ -9,6 +9,7 @@ var autoSave = null;
 
 function init()
 {
+	// Add functionality to clicking tabs and close session button
 	$("#bTab1").click(function() {showTab("Event", 1);});
 	$("#bTab2").click(function() {showTab("Players", 2);});
 	$("#bTab3").click(function() {showTab("Round", 3);});
@@ -16,13 +17,35 @@ function init()
 
 	$("#bCloseSession").click(function() {closeSession();});
 
+	// Trigger event when match type is changed
 	$("#matchType").change(function() {changeMatchType();});
 
-	$("#bAddPlayer").click(function() {addPlayer();});
+	// Trigger addPlayer() when form is submitted
+	$("#playerLastName").on("keyup", function(e) {
+		if (e.which == 13)
+		{
+			addPlayer();
+			$("#playerFirstName").focus();
+		}
+	});
+	$("#bAddPlayer").click(function() {
+		addPlayer();
+		$("#playerFirstName").focus();
+	});
+
+	// Close update/drop player popup when cancel button is pressed
 	$("#bCancelEdit").click(function() {hideEditPlayer();});
+
+	// Trigger editPlayer() when form is submitted
+	$("#editPlayerLastName").on("keyup", function(e) {
+		if (e.which == 13) editPlayer();
+	});
 	$("#bUpdatePlayer").click(function() {editPlayer();});
+
+	// Drop player when button is pressed
 	$("#bDropPlayer").click(function(){dropPlayer();});
 
+	// Populate certain <select> tags with options
 	for (var i = 1; i <= 30; i++)
 		$("#numRounds").append('<option value="'+i+'">'+i+'</option>');
 
