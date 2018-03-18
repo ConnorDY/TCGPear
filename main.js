@@ -257,28 +257,46 @@ function createPairings()
 	var newRound = [];
 	console.log("Round "+(currentRound+1)+" pairings:");
 
-	if (currentRound == 0)
+	switch(eventData["matchType"])
 	{
-		var playersRandomized = eventData["players"].slice(0);
-		playersRandomized = shuffle(playersRandomized);
+		// 1v1
+		default:
+			if (currentRound == 0)
+			{
+				var playersRandomized = eventData["players"].slice(0);
+				playersRandomized = shuffle(playersRandomized);
 
-		for (var i = 0; i < playersRandomized.length; i += 2)
-		{
-			var p1 = playersRandomized[i][0];
-			var p2 = null;
-			if (i+1 < playersRandomized.length) p2 = playersRandomized[i+1][0];
+				for (var i = 0; i < playersRandomized.length; i += 2)
+				{
+					var p1 = playersRandomized[i][0];
+					var p2 = null;
+					if (i+1 < playersRandomized.length) p2 = playersRandomized[i+1][0];
 
-			var pairing = [
-				1,
-				[p1],
-				[p2],
-				null,
-				null
-			];
+					var pairing = [
+						1,
+						[p1],
+						[p2],
+						null,
+						null
+					];
 
-			console.log(pairing);
-			newRound.push(pairing);
-		}
+					console.log(pairing);
+					newRound.push(pairing);
+				}
+			}
+	}
+
+	for (var i = 0; i < newRound.length; i++)
+	{
+		var pairing = newRound[i];
+		var p1 = eventData["players"][getPlayerIndex(pairing[1][0])];
+		var p1Name = p1[1]+" "+p1[2];
+
+		var p2 = eventData["players"][getPlayerIndex(pairing[2][0])];
+		var p2Name;
+		if (p2 != null) p2Name = p2[1]+" "+p2[2];
+		else p2Name = "BYE";
+		$("#pairings").append('<tr><td>'+(i+1)+'</td><td>'+p1Name+'</td><td></td><td>'+p2Name+'</td><td></td></tr>');
 	}
 	
 	eventData["rounds"].push(newRound);
