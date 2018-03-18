@@ -3,6 +3,7 @@
 		<meta charset="utf-8"/>
 		<title>TCGPear</title>
 		<script src="./jquery.js"></script>
+		<script src="./misc.js"></script>
 		<script src="./main.js"></script>
 		<link rel="stylesheet" type="text/css" href="./styles.css">
 	</head>
@@ -32,6 +33,7 @@
 					Default Team/Pod Size: <select id="podSize"></select>
 				</div>
 			</div>
+
 			<div id="tabPlayers" class="tab hidden">
 				<table><tr>
 					<td id="addPlayer" valign="top">
@@ -47,12 +49,14 @@
 					</td>
 				</tr></table>
 			</div>
+
 			<div id="tabRound" class="tab hidden">
 				<div id="roundStep1">
-					<input type="button" value="Create Matches">
-					<input type="button" value="Create Matches Manually">
+					<input type="button" id="bCreatePairings" value="Create Pairings">
+					<input type="button" id="beCreatePairingsManual" value="Create Pairings Manually">
 				</div>
 			</div>
+
 			<div id="tabStandings" class="tab hidden">
 				
 			</div>

@@ -3,6 +3,10 @@ var pid = 0;
 
 var eventData = {};
 eventData["players"] = [];
+eventData["rounds"] = [];
+
+var currentRound = 0;
+var viewingRound = 0;
 
 var activeTab = ["Event", 1];
 var autoSave = null;
@@ -43,7 +47,10 @@ function init()
 	$("#bUpdatePlayer").click(function() {editPlayer();});
 
 	// Drop player when button is pressed
-	$("#bDropPlayer").click(function(){dropPlayer();});
+	$("#bDropPlayer").click(function() {dropPlayer();});
+
+	// Create automatic pairings when button is pressed
+	$("#bCreatePairings").click(function() {createPairings();});
 
 	// Populate certain <select> tags with options
 	for (var i = 1; i <= 30; i++)
@@ -234,4 +241,46 @@ function dropPlayer()
 	$("#p"+id).remove();
 
 	hideEditPlayer();
+}
+
+function createPairings()
+{
+	/*
+	* Pairing array structure
+	* 0: team size (1, 2, 3, etc.)
+	* 1: team 1 list
+	* 2: team 2	list
+	* 3: team 1 score
+	* 4: team 2 score
+	*/
+
+	var newRound = [];
+	console.log("Round "+(currentRound+1)+" pairings:");
+
+	if (currentRound == 0)
+	{
+		var playersRandomized = eventData["players"].slice(0);
+		playersRandomized = shuffle(playersRandomized);
+
+		for (var i = 0; i < playersRandomized.length; i += 2)
+		{
+			var p1 = playersRandomized[i][0];
+			var p2 = null;
+			if (i+1 < playersRandomized.length) p2 = playersRandomized[i+1][0];
+
+			var pairing = [
+				1,
+				[p1],
+				[p2],
+				null,
+				null
+			];
+
+			console.log(pairing);
+			newRound.push(pairing);
+		}
+	}
+	
+	eventData["rounds"].push(newRound);
+	currentRound++;
 }
