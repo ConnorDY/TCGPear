@@ -285,10 +285,19 @@ function createPairings()
 				}
 			}
 	}
+	
+	eventData["rounds"].push(newRound);
+	displayPairings(currentRound);
+	currentRound++;
+}
 
-	for (var i = 0; i < newRound.length; i++)
+function displayPairings(r)
+{
+	$("#pairings").html('<tr><th>Table #</th><th>Player 1</th><th>Player 1 Result</th><th>Player 2</th><th>Player 2 Result</th></tr>');
+
+	for (var i = 0; i < eventData["rounds"][r].length; i++)
 	{
-		var pairing = newRound[i];
+		var pairing = eventData["rounds"][r][i];
 		var p1 = eventData["players"][getPlayerIndex(pairing[1][0])];
 		var p1Name = p1[1]+" "+p1[2];
 
@@ -296,9 +305,7 @@ function createPairings()
 		var p2Name;
 		if (p2 != null) p2Name = p2[1]+" "+p2[2];
 		else p2Name = "BYE";
-		$("#pairings").append('<tr><td>'+(i+1)+'</td><td>'+p1Name+'</td><td></td><td>'+p2Name+'</td><td></td></tr>');
+
+		$("#pairings").append('<tr id="r'+r+'p'+i+'"><td>'+(i+1)+'</td><td>'+p1Name+'</td><td></td><td>'+p2Name+'</td><td></td></tr>');
 	}
-	
-	eventData["rounds"].push(newRound);
-	currentRound++;
 }
