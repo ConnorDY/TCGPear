@@ -195,7 +195,7 @@ function addPlayer(player = null)
 
 	pid++;
 
-	$("#playerListTable").append('<tr id="p'+player[0]+'"><td>'+player[1]+' '+player[2]+'</td><td><input class="bEditPlayer" id="bEditP'+player[0]+'" type="button" value="Edit/Drop"></td></tr>');
+	$("#playerListTable>tbody").append('<tr id="p'+player[0]+'"><td>'+player[1]+' '+player[2]+'</td><td><input class="bEditPlayer" id="bEditP'+player[0]+'" type="button" value="Edit/Drop"></td></tr>');
 	$("#playerFirstName").val("");
 	$("#playerLastName").val("");
 
@@ -284,6 +284,10 @@ function createPairings()
 					newRound.push(pairing);
 				}
 			}
+			else
+			{
+
+			}
 	}
 	
 	eventData["rounds"].push(newRound);
@@ -293,7 +297,7 @@ function createPairings()
 
 function displayPairings(r)
 {
-	$("#pairings").html('<tr><th>Table #</th><th>Player 1</th><th>Player 1 Result</th><th>Player 2</th><th>Player 2 Result</th></tr>');
+	$("#pairings").html('<thead><tr><th>Table #</th><th>Player 1</th><th>Player 1 Result</th><th>Player 2</th><th>Player 2 Result</th></tr></thead><tbody>');
 
 	for (var i = 0; i < eventData["rounds"][r].length; i++)
 	{
@@ -308,4 +312,6 @@ function displayPairings(r)
 
 		$("#pairings").append('<tr id="r'+r+'p'+i+'"><td>'+(i+1)+'</td><td>'+p1Name+'</td><td></td><td>'+p2Name+'</td><td></td></tr>');
 	}
+
+	$("#pairings").append('</tbody>');
 }

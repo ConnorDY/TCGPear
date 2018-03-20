@@ -1,5 +1,6 @@
 body
 {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin: 0;
 }
 
@@ -28,6 +29,8 @@ br.tall
 {
 	border-bottom: 2px solid #555555;
 	background-color: #DDDDDD;
+	font-size: 16px;
+	border-spacing: 4px;
 }
 
 #headings>td:not(#notif):not(#closeSession)
@@ -39,7 +42,7 @@ br.tall
 #notif
 {
 	text-align: right;
-	padding-right: 12px;
+	padding-right: 4px;
 }
 
 #closeSession
@@ -47,20 +50,22 @@ br.tall
 	width: 100px;
 
 	text-align: right;
-	padding-right: 1px;
 }
 
-.tabButton
+.tabButton, #bCloseSession
 {
 	width: 100%;
 
 	background-color: #FFFFFF;
-	border: 2px solid #AAAAAA;
+	border: 1px solid #000000;
+
+	font-size: 16px;
 }
 
 .tabButton.select
 {
-	border: 2px solid #0000FF;
+	background-color: #3B8386;
+	color: #FFFFFF;
 }
 
 #main
@@ -94,14 +99,88 @@ br.tall
 }
 
 /* Players Tab */
-#tabPlayers>table, #tabPlayers>table>tr
+#tabPlayers table, #tabPlayers tr
 {
 	width: 100%;
 }
 
 #playerListTable
 {
+	border-collapse: collapse;
 	width: 100%;
+}
+
+#playerListTable td, #playerListTable th
+{
+	border: 1px solid #ddd;
+	padding: 6px;
+}
+
+#playerListTable td:first-child
+{
+	border-right: 0;
+}
+
+#playerListTable td:last-child
+{
+	border-left: 0;
+	text-align: right;
+}
+
+#playerListTable tr:nth-child(even)
+{
+	background-color: #f2f2f2;
+}
+
+#playerListTable tr:hover
+{
+	background-color: #ddd;
+}
+
+#playerListTable th
+{
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
+}
+
+/* Rounds Tab */
+#pairings
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#pairings td, #pairings th
+{
+	border: 1px solid #ddd;
+	padding: 6px;
+}
+
+#pairings tr:nth-child(even)
+{
+	background-color: #f2f2f2;
+}
+
+#pairings tr:hover
+{
+	background-color: #ddd;
+}
+
+#pairings th
+{
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
+}
+
+.tReportResult, .bReportResult
+{
+	height: 100%;
 }
 
 /*

@@ -37,14 +37,17 @@
 			<div id="tabPlayers" class="tab hidden">
 				<table><tr>
 					<td id="addPlayer" valign="top">
-						<b>Add Player:</b><br />
+						<b>Add Player:</b><br class="tall" />
 						First Name: <input type="text" id="playerFirstName"><br class="tall" />
 						Last Name: <input type="text" id="playerLastName"><br class="tall" />
 						<input type="button" value="Add" id="bAddPlayer">
 					</td>
 					<td id="playerList" valign="top">
-						<b>Current Players</b>
 						<table id="playerListTable">
+							<thead>
+								<th colspan="2">Current Players</th>
+							</thead>
+							<tbody></tbody>
 						</table>
 					</td>
 				</tr></table>
@@ -56,9 +59,23 @@
 					<input type="button" id="beCreatePairingsManual" value="Create Pairings Manually">
 				</div>
 				<br class="tall" />
-				<table id="pairings" border="1"></table>
+				<table id="pairings"></table>
 				<br class="tall" />
-				<table id="reportResults"></table>
+				<table id="reportResults">
+					<tr>
+						<td id="reportName1">Player 1</td>
+						<td><input type="number" id="reportNum1" value="0"></td>
+						<td rowspan="2" class="tReportResult"><button class="bReportResult">2<br />0</button></td>
+						<td rowspan="2" class="tReportResult"><button class="bReportResult">2<br />1</button></td>
+						<td rowspan="2" class="tReportResult"><button class="bReportResult">1<br />1</button></td>
+						<td rowspan="2" class="tReportResult"><button class="bReportResult">1<br />0</button></td>
+						<td rowspan="2" class="tReportResult"><button class="bReportResult">0<br />0</button></td>
+					</tr>
+					<tr>
+						<td id="reportName2">Player 2</td>
+						<td><input type="number" id="reportNum2" value="0"></td>
+					</tr>
+				</table>
 			</div>
 
 			<div id="tabStandings" class="tab hidden">
