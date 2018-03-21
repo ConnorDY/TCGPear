@@ -1,0 +1,26 @@
+{
+  "name": "tcgpear",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConnorDY/TCGPear.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ConnorDY/TCGPear/issues"
+  },
+  "homepage": "https://github.com/ConnorDY/TCGPear#readme",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.6.2"
+  }
+}

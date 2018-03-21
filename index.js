@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import { shuffle } from './misc.js';
+
 var players = {};
 var pid = 0;
 
@@ -372,3 +375,5 @@ function recordResult(result)
 	pairing[3] = p1r;
 	pairing[4] = p2r;
 }
+
+init();
