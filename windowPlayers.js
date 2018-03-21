@@ -26,19 +26,8 @@ class WindowPlayers extends React.Component
         });
     }
 
-    updateInputFirstName(e)
-    {
-        this.setState({
-            inputFirstName: e.target.value
-        });
-    }
-
-    updateInputLastName(e)
-    {
-        this.setState({
-            inputLastName: e.target.value
-        });
-    }
+    updateInputFirstName(e) {this.setState({inputFirstName: e.target.value});}
+    updateInputLastName(e) {this.setState({inputLastName: e.target.value});}
 
     render()
     {
