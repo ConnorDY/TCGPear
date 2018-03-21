@@ -1,5 +1,5 @@
-import React from "react"
-import { render }  from "react-dom"
+import React from "react";
+import { render }  from "react-dom";
 
 class Window extends React.Component
 {

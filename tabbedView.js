@@ -1,8 +1,9 @@
 import React from "react";
-import { render }  from "react-dom"
-import { Tab } from "./tab"
-import { Window } from "./window"
-import { WindowEvent } from "./windowEvent"
+import { render }  from "react-dom";
+import { Tab } from "./tab";
+import { Window } from "./window";
+import { WindowEvent } from "./windowEvent";
+import { WindowPlayers } from "./windowPlayers";
 
 class TabbedView extends React.Component
 {
@@ -76,9 +77,13 @@ class TabbedView extends React.Component
       <div id="main">
         <Window
           name="tabEvent"
-          tabNum={0}
           isActive={this.state.currentTab == 0}>
           <WindowEvent />
+        </Window>
+        <Window
+          name="tabPlayers"
+          isActive={this.state.currentTab == 1}>
+          <WindowPlayers />
         </Window>
       </div>
     </div>);
