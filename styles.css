@@ -192,7 +192,7 @@ br.tall
 	display: none;
 
 	width: 260px;
-	height: 132px;
+	height: 150px;
 
 	border: 2px solid #DEDEDE;
 
@@ -205,13 +205,24 @@ br.tall
 	margin: auto;
 }
 
+#editPlayer>.popupHeader
+{
+	width: 100%;
+	box-sizing: border-box;
+	padding: 6px;
+
+	background-color: #3B8386;
+	text-align: center;
+	color: #FFFFFF;
+
+	border: 1px solid #DEDEDE;
+	border-bottom: none;
+}
+
 #editPlayer>.inner
 {
 	width: calc(100% - 16px);
-	height: calc(100% - 12px);
-
 	padding: 6px 8px 6px 8px;
-
 	position: relative;
 }
 
