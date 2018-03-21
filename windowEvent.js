@@ -1,5 +1,5 @@
 import React from "react";
-import { render }  from "react-dom";
+import range from "lodash/range";
 
 class WindowEvent extends React.Component
 {
@@ -22,15 +22,11 @@ class WindowEvent extends React.Component
 
     render()
     {
-        var roundOptions = [];
-        for (var i = 1; i <= 30; i++)
-        {
-            roundOptions.push(<option key={i-1} value={i}>{i}</option>);
-        }
-
         return(<div>
             Event Name: <input type="text" id="eventName" value={this.state.inputEventName} onChange={this.updateEventName} /><br className="tall" />
-            Number of Rounds: <select id="numRounds" value={this.state.inputNumRounds} onChange={this.updateNumRounds}>{roundOptions}</select><br className="tall" />
+            Number of Rounds: <select id="numRounds" value={this.state.inputNumRounds} onChange={this.updateNumRounds}>
+                {range(1, 30).map((i) => <option key={i-1} value={i}>{i}</option>)}
+            </select><br className="tall" />
             Match Type:
             <select id="matchType" value={this.state.inputMatchType} onChange={this.updateMatchType}>
                 <option value="0">1v1</option>
@@ -44,4 +40,4 @@ class WindowEvent extends React.Component
     }
 }
 
-export { WindowEvent };
+export default WindowEvent;

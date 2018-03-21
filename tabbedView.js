@@ -1,10 +1,9 @@
 import React from "react";
 import { render }  from "react-dom";
-import { Players } from "./players";
-import { Tab } from "./tab";
-import { Window } from "./window";
-import { WindowEvent } from "./windowEvent";
-import { WindowPlayers } from "./windowPlayers";
+import Tab from "./tab";
+import Window from "./window";
+import WindowEvent from "./windowEvent";
+import WindowPlayers from "./windowPlayers";
 
 class TabbedView extends React.Component
 {
@@ -55,29 +54,11 @@ class TabbedView extends React.Component
 
 	render()
   {
+    const tabs = ["Event Info", "Players", "Round", "Standings"];
 		return (<div>
       <table id="header"><tbody>
         <tr id="headings">
-          <Tab
-            name="Event Info"
-            tabNum={0}
-            isActive={(this.state.currentTab == 0)}
-            onTabChange={this.changeTab} />
-          <Tab
-            name="Players"
-            tabNum={1}
-            isActive={(this.state.currentTab == 1)}
-            onTabChange={this.changeTab} />
-          <Tab
-            name="Round"
-            tabNum={2}
-            isActive={(this.state.currentTab == 2)}
-            onTabChange={this.changeTab} />
-          <Tab
-            name="Standings"
-            tabNum={3}
-            isActive={(this.state.currentTab == 3)}
-            onTabChange={this.changeTab} />
+        {tabs.map((tab, i) => <Tab name={tab} key={i} tabNum={i} isActive={(this.state.currentTab == i)} onTabChange={this.changeTab} />)}
           <td id="notif">Last saved: {this.state.lastSaved}</td>
   				<td id="closeSession">
             <input
@@ -98,7 +79,7 @@ class TabbedView extends React.Component
           name="tabPlayers"
           isActive={this.state.currentTab == 1}>
           <WindowPlayers
-            players={<Players players={this.state.players} />}
+            players={this.state.players}
             onAddPlayer={this.addPlayer} />
         </Window>
       </div>

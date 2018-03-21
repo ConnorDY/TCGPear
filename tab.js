@@ -1,33 +1,13 @@
 import React from "react";
-import { render }  from "react-dom";
 
-class Tab extends React.Component
-{
-  constructor(props)
-  {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
+const Tab = ({ tabNum, name, isSelected, onTabChange }) => (
+<td>
+  <input
+    type="button"
+    className={"tabButton"+isSelected}
+    value={name}
+    onClick={() => onTabChange(tabNum)} />
+</td>
+);
 
-  handleChange(e)
-  {
-    this.props.onTabChange(this.props.tabNum);
-  }
-
-  render()
-  {
-    const isSelected = this.props.isActive ? " select" : "";
-
-    return (
-      <td>
-        <input
-          type="button"
-          className={"tabButton"+isSelected}
-          value={this.props.name}
-          onClick={this.handleChange} />
-      </td>
-    );
-  }
-}
-
-export { Tab };
+export default Tab;

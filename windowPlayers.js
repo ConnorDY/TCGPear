@@ -1,5 +1,5 @@
 import React from "react";
-import { render }  from "react-dom";
+import Players from "./players";
 
 class WindowPlayers extends React.Component
 {
@@ -7,39 +7,33 @@ class WindowPlayers extends React.Component
     {
         super(props);
         this.handleAddPlayer = this.handleAddPlayer.bind(this);
-        this.updateInputFirstName = this.updateInputFirstName.bind(this);
-        this.updateInputLastName = this.updateInputLastName.bind(this);
-        this.state = {
-            inputFirstName: "",
-            inputLastName: ""
-        };
     }
 
     handleAddPlayer()
     {
-        if (this.state.inputFirstName.trim() == "" || this.state.inputLastName.trim() == "") return 0;
+        if (this.firstNameInput.value.trim() == "" || this.lastNameInput.value.trim() == "") return 0;
 
-        this.props.onAddPlayer(this.state.inputFirstName, this.state.inputLastName);
-        this.setState({
-            inputFirstName: "",
-            inputLastName: ""
-        });
+        this.props.onAddPlayer(
+            this.firstNameInput.value, 
+            this.lastNameInput.value
+        );
+
+        this.firstNameInput.value = "";
+        this.lastNameInput.value = "";
     }
-
-    updateInputFirstName(e) {this.setState({inputFirstName: e.target.value});}
-    updateInputLastName(e) {this.setState({inputLastName: e.target.value});}
 
     render()
     {
+        const { players } = this.props;
         return (
             <table><tbody><tr>
                 <td id="addPlayer" valign="top">
                     <b>Add Player:</b><br className="tall" />
                     First Name:
-                    <input type="text" id="playerFirstName" value={this.state.inputFirstName} onChange={this.updateInputFirstName} />
+                    <input type="text" id="playerFirstName" ref={(input) => { this.firstNameInput = input; }} />
                     <br className="tall" />
                     Last Name:
-                    <input type="text" id="playerLastName" value={this.state.inputLastName} onChange={this.updateInputLastName} />
+                    <input type="text" id="playerLastName" ref={(input) => { this.lastNameInput = input; }} />
                     <br className="tall" />
                     <input type="button" value="Add" id="bAddPlayer" onClick={this.handleAddPlayer} />
                 </td>
@@ -48,7 +42,7 @@ class WindowPlayers extends React.Component
                         <thead>
                             <tr><th colSpan="2">Current Players</th></tr>
                         </thead>
-                        {this.props.players}
+                        <Players players={players} />
                     </table>
                 </td>
             </tr></tbody></table>
@@ -56,4 +50,4 @@ class WindowPlayers extends React.Component
     }
 }
 
-export { WindowPlayers };
+export default WindowPlayers;
