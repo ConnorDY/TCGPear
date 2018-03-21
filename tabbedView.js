@@ -1,5 +1,6 @@
 import React from "react";
 import { render }  from "react-dom";
+import { Players } from "./players";
 import { Tab } from "./tab";
 import { Window } from "./window";
 import { WindowEvent } from "./windowEvent";
@@ -10,21 +11,34 @@ class TabbedView extends React.Component
   constructor(props)
   {
     super(props);
-    this.handleTabChange = this.handleTabChange.bind(this);
+    this.changeTab = this.changeTab.bind(this);
+    this.addPlayer = this.addPlayer.bind(this);
     this.closeSession = this.closeSession.bind(this);
     this.state = {
       currentTab: 0,
-      lastSaved: "never"
+      lastSaved: "never",
+      players: []
     };
   }
 
   componentDidMount() {}
   componentWillUnmount() {}
 
-  handleTabChange(tab)
+  changeTab(tab)
   {
     this.setState({
       currentTab: tab
+    });
+  }
+
+  addPlayer(firstName, lastName)
+  {
+    var player = {
+      "firstName": firstName,
+      "lastName": lastName
+    };
+    this.setState({
+      players: this.state.players.concat([player])
     });
   }
 
@@ -48,22 +62,22 @@ class TabbedView extends React.Component
             name="Event Info"
             tabNum={0}
             isActive={(this.state.currentTab == 0)}
-            onTabChange={this.handleTabChange} />
+            onTabChange={this.changeTab} />
           <Tab
             name="Players"
             tabNum={1}
             isActive={(this.state.currentTab == 1)}
-            onTabChange={this.handleTabChange} />
+            onTabChange={this.changeTab} />
           <Tab
             name="Round"
             tabNum={2}
             isActive={(this.state.currentTab == 2)}
-            onTabChange={this.handleTabChange} />
+            onTabChange={this.changeTab} />
           <Tab
             name="Standings"
             tabNum={3}
             isActive={(this.state.currentTab == 3)}
-            onTabChange={this.handleTabChange} />
+            onTabChange={this.changeTab} />
           <td id="notif">Last saved: {this.state.lastSaved}</td>
   				<td id="closeSession">
             <input
@@ -83,7 +97,9 @@ class TabbedView extends React.Component
         <Window
           name="tabPlayers"
           isActive={this.state.currentTab == 1}>
-          <WindowPlayers />
+          <WindowPlayers
+            players={<Players players={this.state.players} />}
+            onAddPlayer={this.addPlayer} />
         </Window>
       </div>
     </div>);
