@@ -52,6 +52,12 @@ function init()
 	// Create automatic pairings when button is pressed
 	$("#bCreatePairings").click(function() {createPairings();});
 
+	// Record result when button is pressed
+	$(".bReportResult").click(function() {
+		var result = Number($(this).attr("id").substring(4));
+		recordResult(result);
+	});
+
 	// Populate certain <select> tags with options
 	for (var i = 1; i <= 30; i++)
 		$("#numRounds").append('<option value="'+i+'">'+i+'</option>');
@@ -314,4 +320,55 @@ function displayPairings(r)
 	}
 
 	$("#pairings").append('</tbody>');
+}
+
+function recordResult(result)
+{
+	var p1r;
+	var p2r;
+
+	switch(result)
+	{
+		case 0:
+			p1r = 2;
+			p2r = 0;
+			break;
+		case 1:
+			p1r = 2;
+			p2r = 1;
+			break;
+		case 2:
+			p1r = 1;
+			p2r = 1;
+			break;
+		case 3:
+			p1r = 1;
+			p2r = 0;
+			break;
+		case 4:
+			p1r = 0;
+			p2r = 0;
+			break;
+		case 5:
+			p1r = 0;
+			p2r = 1;
+			break;
+		case 6:
+			p1r = 1;
+			p2r = 2;
+			break;
+		case 7:
+			p1r = 0;
+			p2r = 2;
+			break;
+		default:
+			p1r = -1;
+			p2r = -1;
+	}
+
+	var r = eventData["rounds"][currentRound-1];
+	var pairing = r[0];
+
+	pairing[3] = p1r;
+	pairing[4] = p2r;
 }
