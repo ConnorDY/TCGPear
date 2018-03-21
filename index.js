@@ -8,4 +8,4 @@ const App = () => (
 	<TabbedView />
 );
 
-render(<App />, $("#main").get(0));
+render(<App />, $("#root").get(0));

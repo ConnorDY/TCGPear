@@ -1,6 +1,8 @@
-import React from "react"
-import { render}  from "react-dom"
+import React from "react";
+import { render }  from "react-dom"
 import { Tab } from "./tab"
+import { Window } from "./window"
+import { WindowEvent } from "./windowEvent"
 
 class TabbedView extends React.Component
 {
@@ -38,7 +40,7 @@ class TabbedView extends React.Component
 
 	render()
   {
-		return (
+		return (<div>
       <table id="header"><tbody>
         <tr id="headings">
           <Tab
@@ -71,7 +73,12 @@ class TabbedView extends React.Component
           </td>
         </tr>
       </tbody></table>
-		);
+      <div id="main">
+        <Window name="tabEvent">
+          <WindowEvent />
+        </Window>
+      </div>
+    </div>);
  	}
 }
 
