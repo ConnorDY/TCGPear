@@ -15,12 +15,16 @@ class TabbedView extends React.Component
     this.closeSession = this.closeSession.bind(this);
     this.state = {
       currentTab: 0,
-      lastSaved: "never",
       players: []
     };
   }
 
-  componentDidMount() {}
+  componentDidMount()
+  {
+    if (localStorage.length <= 0) return;
+    if (localStorage.getItem("currentTab") !== null) this.setState({currentTab: localStorage.currentTab});
+    if (localStorage.getItem("players") !== null) this.setState({players: JSON.parse(localStorage.players)});
+  }
   componentWillUnmount() {}
 
   changeTab(tab)
@@ -28,6 +32,8 @@ class TabbedView extends React.Component
     this.setState({
       currentTab: tab
     });
+
+    localStorage.currentTab = tab;
   }
 
   addPlayer(firstName, lastName)
@@ -36,15 +42,18 @@ class TabbedView extends React.Component
       "firstName": firstName,
       "lastName": lastName
     };
+    var newPlayersList = this.state.players.concat([player]);
     this.setState({
-      players: this.state.players.concat([player])
+      players: newPlayersList
     });
+
+    localStorage.players = JSON.stringify(newPlayersList);
   }
 
   closeSession()
   {
     var choice = confirm("Are you sure you want to close this session?\n\nAll session data will be lost and program defaults will be restored.");
-    if (!choice) return 0;
+    if (!choice) return;
 
     //clearInterval(autoSave);
     //$("#mainForm")[0].reset();
@@ -59,7 +68,7 @@ class TabbedView extends React.Component
       <table id="header"><tbody>
         <tr id="headings">
         {tabs.map((tab, i) => <Tab name={tab} key={i} tabNum={i} isActive={(this.state.currentTab == i)} onTabChange={this.changeTab} />)}
-          <td id="notif">Last saved: {this.state.lastSaved}</td>
+          <td id="notif"></td>
   				<td id="closeSession">
             <input
               type="button"

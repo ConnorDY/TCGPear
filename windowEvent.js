@@ -16,9 +16,29 @@ class WindowEvent extends React.Component
         };
     }
 
-    updateEventName(e) {this.setState({inputEventName: e.target.value});}
-    updateNumRounds(e) {this.setState({inputNumRounds: e.target.value});}
-    updateMatchType(e) {this.setState({inputMatchType: e.target.value});}
+    componentDidMount()
+    {
+      if (localStorage.length <= 0) return;
+      if (localStorage.getItem("eventName") !== null) this.setState({inputEventName: localStorage.eventName});
+      if (localStorage.getItem("numRounds") !== null) this.setState({inputNumRounds: localStorage.numRounds});
+      if (localStorage.getItem("matchType") !== null) this.setState({inputMatchType: localStorage.matchType});
+    }
+
+    updateEventName(e)
+    {
+        this.setState({inputEventName: e.target.value});
+        localStorage.eventName = e.target.value;
+    }
+    updateNumRounds(e)
+    {
+        this.setState({inputNumRounds: e.target.value});
+        localStorage.numRounds = e.target.value;
+    }
+    updateMatchType(e)
+    {
+        this.setState({inputMatchType: e.target.value});
+        localStorage.matchType = e.target.value;
+    }
 
     render()
     {
@@ -27,7 +47,7 @@ class WindowEvent extends React.Component
             Number of Rounds: <select id="numRounds" value={this.state.inputNumRounds} onChange={this.updateNumRounds}>
                 {range(1, 30).map((i) => <option key={i-1} value={i}>{i}</option>)}
             </select><br className="tall" />
-            Match Type:
+            Match Type:&nbsp;
             <select id="matchType" value={this.state.inputMatchType} onChange={this.updateMatchType}>
                 <option value="0">1v1</option>
                 <option value="1">Free-for-All</option>

@@ -14,7 +14,7 @@ class WindowPlayers extends React.Component
         if (this.firstNameInput.value.trim() == "" || this.lastNameInput.value.trim() == "") return 0;
 
         this.props.onAddPlayer(
-            this.firstNameInput.value, 
+            this.firstNameInput.value,
             this.lastNameInput.value
         );
 
@@ -29,10 +29,10 @@ class WindowPlayers extends React.Component
             <table><tbody><tr>
                 <td id="addPlayer" valign="top">
                     <b>Add Player:</b><br className="tall" />
-                    First Name:
+                    First Name:&nbsp;
                     <input type="text" id="playerFirstName" ref={(input) => { this.firstNameInput = input; }} />
                     <br className="tall" />
-                    Last Name:
+                    Last Name:&nbsp;
                     <input type="text" id="playerLastName" ref={(input) => { this.lastNameInput = input; }} />
                     <br className="tall" />
                     <input type="button" value="Add" id="bAddPlayer" onClick={this.handleAddPlayer} />
@@ -42,7 +42,9 @@ class WindowPlayers extends React.Component
                         <thead>
                             <tr><th colSpan="2">Current Players</th></tr>
                         </thead>
-                        <Players players={players} />
+                        <tbody>
+                            <Players players={players} />
+                        </tbody>
                     </table>
                 </td>
             </tr></tbody></table>
