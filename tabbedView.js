@@ -8,26 +8,32 @@ class TabbedView extends React.Component
   {
     super(props);
     this.handleTabChange = this.handleTabChange.bind(this);
+    this.closeSession = this.closeSession.bind(this);
     this.state = {
-      currentTab: 0
+      currentTab: 0,
+      lastSaved: "never"
     };
   }
 
-  componentDidMount()
-  {
-
-  }
-
-  componentWillUnmount()
-  {
-
-  }
+  componentDidMount() {}
+  componentWillUnmount() {}
 
   handleTabChange(tab)
   {
     this.setState({
       currentTab: tab
     });
+  }
+
+  closeSession()
+  {
+    var choice = confirm("Are you sure you want to close this session?\n\nAll session data will be lost and program defaults will be restored.");
+    if (!choice) return 0;
+
+    //clearInterval(autoSave);
+    //$("#mainForm")[0].reset();
+    localStorage.removeItem("event");
+    location.reload();
   }
 
 	render()
@@ -55,6 +61,14 @@ class TabbedView extends React.Component
             tabNum={3}
             isActive={(this.state.currentTab == 3)}
             onTabChange={this.handleTabChange} />
+          <td id="notif">Last saved: {this.state.lastSaved}</td>
+  				<td id="closeSession">
+            <input
+              type="button"
+              id="bCloseSession"
+              value="Close Session"
+              onClick={this.closeSession} />
+          </td>
         </tr>
       </tbody></table>
 		);
