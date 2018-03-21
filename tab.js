@@ -1,10 +1,10 @@
 import React from "react";
 
-const Tab = ({ tabNum, name, isSelected, onTabChange }) => (
+const Tab = ({ tabNum, name, isActive, onTabChange }) => (
 <td>
   <input
     type="button"
-    className={"tabButton"+isSelected}
+    className={"tabButton"+(isActive ? " select" : "")}
     value={name}
     onClick={() => onTabChange(tabNum)} />
 </td>
