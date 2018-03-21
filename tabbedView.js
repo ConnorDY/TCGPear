@@ -74,7 +74,10 @@ class TabbedView extends React.Component
         </tr>
       </tbody></table>
       <div id="main">
-        <Window name="tabEvent">
+        <Window
+          name="tabEvent"
+          tabNum={0}
+          isActive={this.state.currentTab == 0}>
           <WindowEvent />
         </Window>
       </div>

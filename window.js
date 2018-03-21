@@ -10,8 +10,10 @@ class Window extends React.Component
 
     render()
     {
+        const isSelected = this.props.isActive ? "" : " hidden";
+
         return (
-            <div id={this.props.name} className="tab">
+            <div id={this.props.name} className={"tab"+isSelected}>
                 {this.props.children}
             </div>
         );
