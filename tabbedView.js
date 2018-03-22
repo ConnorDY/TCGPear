@@ -59,18 +59,24 @@ class TabbedView extends React.Component
 
   editPlayer(pid, firstName, lastName)
   {
+    var newPlayersList = this.state.players.map((player, i) => pid === i ? { firstName, lastName } : player);
     this.setState({
-      players: this.state.players.map((player, i) => pid === i ? { firstName, lastName } : player),
+      players: newPlayersList,
       popupEditPlayerIsVis: false,
     });
+    
+    localStorage.players = JSON.stringify(newPlayersList);
   }
 
   dropPlayer(pid)
   {
+    var newPlayersList = this.state.players.filter((player, i) => i !== pid);
     this.setState({
-      players: this.state.players.filter((player, i) => i !== pid),
+      players: newPlayersList,
       popupEditPlayerIsVis: false,
     })
+
+    localStorage.players = JSON.stringify(newPlayersList);
   }
 
   showPopupEditPlayer(pid)

@@ -29,7 +29,8 @@ class PopupEditPlayer extends React.Component
         this.props.onDropPlayer(this.props.pid);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps)
+    {
         this.setState({
             firstName: nextProps.player.firstName || "",
             lastName: nextProps.player.lastName || ""
