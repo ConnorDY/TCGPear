@@ -2,109 +2,16 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>TCGPear</title>
-		<script src="./jquery.js"></script>
-		<script src="./misc.js"></script>
-		<script src="./main.js"></script>
 		<link rel="stylesheet" type="text/css" href="./styles.css">
 	</head>
 	<body>
-		<table id="header">
-			<tr id="headings">
-				<td><input type="button" id="bTab1" class="tabButton select" value="Event Info"></td>
-				<td><input type="button" id="bTab2" class="tabButton" value="Players"></td>
-				<td><input type="button" id="bTab3" class="tabButton" value="Round"></td>
-				<td><input type="button" id="bTab4" class="tabButton" value="Standings"></td>
-				<td id="notif">Last saved: never</td>
-				<td id="closeSession"><input type="button" id="bCloseSession" value="Close Session"></td>
-			</tr>
-		</table>
+		<div id="root"></div>
 
-		<div id="main"><form id="mainForm">
-			<div id="tabEvent" class="tab">
-				Event Name: <input type="text" id="eventName"><br class="tall" />
-				Number of Rounds: <select id="numRounds"></select><br class="tall" />
-				Match Type:
-				<select id="matchType">
-					<option value="0">1v1</option>
-					<option value="1">Free-for-All</option>
-					<option value="2">Teams</option>
-				</select><br class="tall" />
-				<div id="defaultTeamPodSize">
-					Default Team/Pod Size: <select id="podSize"></select>
-				</div>
-			</div>
-
-			<div id="tabPlayers" class="tab hidden">
-				<table><tr>
-					<td id="addPlayer" valign="top">
-						<b>Add Player:</b><br class="tall" />
-						First Name: <input type="text" id="playerFirstName"><br class="tall" />
-						Last Name: <input type="text" id="playerLastName"><br class="tall" />
-						<input type="button" value="Add" id="bAddPlayer">
-					</td>
-					<td id="playerList" valign="top">
-						<table id="playerListTable">
-							<thead>
-								<th colspan="2">Current Players</th>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</td>
-				</tr></table>
-			</div>
-
-			<div id="tabRound" class="tab hidden">
-				<div id="roundStep1">
-					<input type="button" id="bCreatePairings" value="Create Pairings">
-					<input type="button" id="beCreatePairingsManual" value="Create Pairings Manually">
-				</div>
-				<br class="tall" />
-				<table id="pairings"></table>
-				<br class="tall" />
-				<table id="reportResults">
-					<tr>
-						<td id="reportName1">Player 1</td>
-						<td><input type="number" id="reportNum1" value="0"></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep0" class="bReportResult">2<br />0</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep1" class="bReportResult">2<br />1</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep2" class="bReportResult">1<br />1</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep3" class="bReportResult">1<br />0</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep4" class="bReportResult">0<br />0</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep5" class="bReportResult">0<br />1</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep6" class="bReportResult">1<br />2</button></td>
-						<td rowspan="2" class="tReportResult"><button type="button" id="bRep7" class="bReportResult">0<br />2</button></td>
-					</tr>
-					<tr>
-						<td id="reportName2">Player 2</td>
-						<td><input type="number" id="reportNum2" value="0"></td>
-					</tr>
-				</table>
-			</div>
-
+		<!--
 			<div id="tabStandings" class="tab hidden">
-				
 			</div>
-		</form></div>
+		-->
 
-		<div id="editPlayer">
-			<div class="popupHeader">Update Player</div>
-			<div class="inner">
-				<div class="spacer1"></div>
-				<input type="hidden" id="editPlayerID">
-				First Name: <input type="text" id="editPlayerFirstName"><br class="tall" />
-				Last Name: <input type="text" id="editPlayerLastName"><br class="tall" />
-				<div class="spacer1"></div>
-				<center>
-					<input type="button" value="Update Info" id="bUpdatePlayer">
-					&nbsp;
-					<input type="button" value="Drop Player" id="bDropPlayer">
-				</center>
-			</div>
-			<div id="cancelEdit"><input type="button" value="X" id="bCancelEdit"></div>
-		</div>
-
-		<script type="text/javascript">
-			init();
-		</script>
+		<script src="index.js"></script>
 	</body>
 </html>
