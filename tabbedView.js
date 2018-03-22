@@ -5,6 +5,7 @@ import WindowEvent from "./windowEvent";
 import WindowPlayers from "./windowPlayers";
 import WindowRound from "./windowRound";
 import PopupEditPlayer from "./popupEditPlayer";
+import { shuffle } from "./misc";
 
 class TabbedView extends React.Component
 {
@@ -12,9 +13,11 @@ class TabbedView extends React.Component
   {
     super(props);
     this.changeTab = this.changeTab.bind(this);
+    this.changeMatchType = this.changeMatchType.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
     this.editPlayer = this.editPlayer.bind(this);
     this.dropPlayer = this.dropPlayer.bind(this);
+    this.createPairings = this.createPairings.bind(this);
     this.showPopupEditPlayer = this.showPopupEditPlayer.bind(this);
     this.hidePopupEditPlayer = this.hidePopupEditPlayer.bind(this);
     this.closeSession = this.closeSession.bind(this);
@@ -22,7 +25,10 @@ class TabbedView extends React.Component
       currentTab: 0,
       players: [],
       popupEditPlayerIsVis: false,
-      popupEditPlayerPID: 0
+      popupEditPlayerPID: 0,
+      matchType: 0,
+      currentRound: 0,
+      rounds: []
     };
   }
 
@@ -36,11 +42,13 @@ class TabbedView extends React.Component
 
   changeTab(tab)
   {
-    this.setState({
-      currentTab: tab
-    });
-
+    this.setState({currentTab: tab});
     localStorage.currentTab = tab;
+  }
+
+  changeMatchType(type)
+  {
+    this.setState({matchType: type});
   }
 
   addPlayer(firstName, lastName)
@@ -79,6 +87,63 @@ class TabbedView extends React.Component
     localStorage.players = JSON.stringify(newPlayersList);
   }
 
+  createPairings()
+  {
+    /*
+    * Pairing array structure
+    * 0: team size (1, 2, 3, etc.)
+    * 1: team 1 list
+    * 2: team 2	list
+    * 3: team 1 score
+    * 4: team 2 score
+    */
+
+    var newRound = [];
+    console.log("Round "+(this.state.currentRound+1)+" pairings:");
+
+    switch(this.state.matchType)
+    {
+      // 1v1
+      default:
+        if (this.state.currentRound == 0)
+        {
+          var playersRandomized = this.state.players.slice(0);
+          for (var i = 0; i < playersRandomized.length; i++) playersRandomized[i].pid = i;
+
+          playersRandomized = shuffle(playersRandomized);
+          for (var i = 0; i < playersRandomized.length; i += 2)
+          {
+            var p1 = playersRandomized[i].pid;
+            var p2 = null;
+            if (i+1 < playersRandomized.length) p2 = playersRandomized[i+1].pid;
+
+            var pairing = [
+              1,
+              [p1],
+              [p2],
+              null,
+              null
+            ];
+
+            console.log(pairing);
+            newRound.push(pairing);
+          }
+        }
+        else
+        {
+
+        }
+    }
+
+    var newRoundsArray = this.state.rounds.concat([newRound]);
+
+    //displayPairings(currentRound);
+    this.setState({
+      currentRound: this.state.currentRound+1,
+      rounds: newRoundsArray
+    });
+  }
+
   showPopupEditPlayer(pid)
   {
     this.setState({
@@ -106,6 +171,9 @@ class TabbedView extends React.Component
 	render()
   {
     const tabs = ["Event Info", "Players", "Round", "Standings"];
+    let pairings = [];
+    if (this.state.currentRound > 0) pairings = this.state.rounds[this.state.currentRound-1];
+
 		return (<div>
       <table id="header"><tbody>
         <tr id="headings">
@@ -123,7 +191,8 @@ class TabbedView extends React.Component
       <div id="main">
         <Window
           name="tabEvent"
-          isActive={this.state.currentTab == 0}>
+          isActive={this.state.currentTab == 0}
+          onChangeMatchType={this.changeMatchType}>
           <WindowEvent />
         </Window>
         <Window
@@ -137,7 +206,9 @@ class TabbedView extends React.Component
         <Window
           name="tabRound"
           isActive={this.state.currentTab == 2}>
-          <WindowRound />
+          <WindowRound
+            pairings={pairings}
+            onCreatePairings={this.createPairings} />
         </Window>
       </div>
       { this.state.players.length ?

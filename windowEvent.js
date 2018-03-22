@@ -37,6 +37,7 @@ class WindowEvent extends React.Component
     updateMatchType(e)
     {
         this.setState({inputMatchType: e.target.value});
+        this.props.onChangeMatchType(e.target.value);
         localStorage.matchType = e.target.value;
     }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Pairings from "./pairings"
 
 class WindowRound extends React.Component
 {
@@ -9,13 +10,35 @@ class WindowRound extends React.Component
 
     render()
     {
+        const { pairings } = this.props;
         return (<div>
             <div id="roundStep1">
-                <input type="button" id="bCreatePairings" value="Create Pairings" />
-                <input type="button" id="beCreatePairingsManual" value="Create Pairings Manually" />
+                <input
+                    type="button"
+                    id="bCreatePairings"
+                    value="Create Pairings"
+                    onClick={this.props.onCreatePairings} />
+                &nbsp;
+                <input
+                    type="button"
+                    id="beCreatePairingsManual"
+                    value="Create Pairings Manually" />
             </div>
             <br className="tall" />
-            <table id="pairings"></table>
+            <table id="pairings">
+                <thead>
+                    <tr>
+                        <th>Table #</th>
+                        <th>Player 1</th>
+                        <th>Player 1 Result</th>
+                        <th>Player 2</th>
+                        <th>Player 2 Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <Pairings pairings={pairings}/>
+                </tbody>
+            </table>
             <br className="tall" />
             <table id="reportResults"><tbody>
                 <tr>
