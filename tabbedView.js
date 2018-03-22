@@ -1,9 +1,9 @@
 import React from "react";
-import { render }  from "react-dom";
 import Tab from "./tab";
 import Window from "./window";
 import WindowEvent from "./windowEvent";
 import WindowPlayers from "./windowPlayers";
+import WindowRound from "./windowRound";
 import PopupEditPlayer from "./popupEditPlayer";
 
 class TabbedView extends React.Component
@@ -133,6 +133,11 @@ class TabbedView extends React.Component
             players={this.state.players}
             onAddPlayer={this.addPlayer}
             onShowPopupEditPlayer={this.showPopupEditPlayer} />
+        </Window>
+        <Window
+          name="tabRound"
+          isActive={this.state.currentTab == 2}>
+          <WindowRound />
         </Window>
       </div>
       { this.state.players.length ?
