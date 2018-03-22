@@ -59,12 +59,18 @@ class TabbedView extends React.Component
 
   editPlayer(pid, firstName, lastName)
   {
-    
+    this.setState({
+      players: this.state.players.map((player, i) => pid === i ? { firstName, lastName } : player),
+      popupEditPlayerIsVis: false,
+    });
   }
 
   dropPlayer(pid)
   {
-    
+    this.setState({
+      players: this.state.players.filter((player, i) => i !== pid),
+      popupEditPlayerIsVis: false,
+    })
   }
 
   showPopupEditPlayer(pid)
@@ -123,13 +129,15 @@ class TabbedView extends React.Component
             onShowPopupEditPlayer={this.showPopupEditPlayer} />
         </Window>
       </div>
+      { this.state.players.length ?
       <PopupEditPlayer
         visible={this.state.popupEditPlayerIsVis}
         pid={this.state.popupEditPlayerPID}
         player={this.state.players[this.state.popupEditPlayerPID]}
         onUpdatePlayer={this.editPlayer}
         onDropPlayer={this.dropPlayer}
-        onHidePopupEditPlayer={this.hidePopupEditPlayer} />
+        onHidePopupEditPlayer={this.hidePopupEditPlayer} /> 
+        : null }
     </div>);
  	}
 }
