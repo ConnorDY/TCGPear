@@ -4,6 +4,7 @@ import Tab from "./tab";
 import Window from "./window";
 import WindowEvent from "./windowEvent";
 import WindowPlayers from "./windowPlayers";
+import PopupEditPlayer from "./popupEditPlayer";
 
 class TabbedView extends React.Component
 {
@@ -12,10 +13,16 @@ class TabbedView extends React.Component
     super(props);
     this.changeTab = this.changeTab.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
+    this.editPlayer = this.editPlayer.bind(this);
+    this.dropPlayer = this.dropPlayer.bind(this);
+    this.showPopupEditPlayer = this.showPopupEditPlayer.bind(this);
+    this.hidePopupEditPlayer = this.hidePopupEditPlayer.bind(this);
     this.closeSession = this.closeSession.bind(this);
     this.state = {
       currentTab: 0,
-      players: []
+      players: [],
+      popupEditPlayerIsVis: false,
+      popupEditPlayerPID: 0
     };
   }
 
@@ -48,6 +55,29 @@ class TabbedView extends React.Component
     });
 
     localStorage.players = JSON.stringify(newPlayersList);
+  }
+
+  editPlayer(pid, firstName, lastName)
+  {
+    
+  }
+
+  dropPlayer(pid)
+  {
+    
+  }
+
+  showPopupEditPlayer(pid)
+  {
+    this.setState({
+      popupEditPlayerIsVis: true,
+      popupEditPlayerPID: pid
+    });
+  }
+
+  hidePopupEditPlayer()
+  {
+    this.setState({popupEditPlayerIsVis: false});
   }
 
   closeSession()
@@ -89,11 +119,19 @@ class TabbedView extends React.Component
           isActive={this.state.currentTab == 1}>
           <WindowPlayers
             players={this.state.players}
-            onAddPlayer={this.addPlayer} />
+            onAddPlayer={this.addPlayer}
+            onShowPopupEditPlayer={this.showPopupEditPlayer} />
         </Window>
       </div>
+      <PopupEditPlayer
+        visible={this.state.popupEditPlayerIsVis}
+        pid={this.state.popupEditPlayerPID}
+        player={this.state.players[this.state.popupEditPlayerPID]}
+        onUpdatePlayer={this.editPlayer}
+        onDropPlayer={this.dropPlayer}
+        onHidePopupEditPlayer={this.hidePopupEditPlayer} />
     </div>);
  	}
 }
 
-export { TabbedView };
+export default TabbedView;

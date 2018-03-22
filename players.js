@@ -1,6 +1,6 @@
 import React from "react";
 
-const Players = ({ players }) => players.map((player, i) => (
+const Players = ({ players, handleEditPlayer }) => players.map((player, i) => (
     <tr id={"p"+i} key={i}>
     <td>{player.firstName+" "+player.lastName}</td>
     <td>
@@ -8,7 +8,8 @@ const Players = ({ players }) => players.map((player, i) => (
             className="bEditPlayer"
             id={"bEditP"+i}
             type="button"
-            value="Edit/Drop" />
+            value="Edit/Drop"
+            onClick={() => handleEditPlayer(i)} />
     </td>
 </tr>
 ));

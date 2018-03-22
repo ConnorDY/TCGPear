@@ -1,8 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { render } from "react-dom";
-import { TabbedView } from "./tabbedView";
-// import { shuffle } from "./misc";
+import TabbedView from "./tabbedView";
 
 const App = () => (
 	<TabbedView />

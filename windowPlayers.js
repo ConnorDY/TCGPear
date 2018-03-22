@@ -7,6 +7,7 @@ class WindowPlayers extends React.Component
     {
         super(props);
         this.handleAddPlayer = this.handleAddPlayer.bind(this);
+        this.handleEditPlayer = this.handleEditPlayer.bind(this);
     }
 
     handleAddPlayer()
@@ -20,6 +21,11 @@ class WindowPlayers extends React.Component
 
         this.firstNameInput.value = "";
         this.lastNameInput.value = "";
+    }
+
+    handleEditPlayer(id)
+    {
+        this.props.onShowPopupEditPlayer(id);
     }
 
     render()
@@ -43,7 +49,7 @@ class WindowPlayers extends React.Component
                             <tr><th colSpan="2">Current Players</th></tr>
                         </thead>
                         <tbody>
-                            <Players players={players} />
+                            <Players players={players} handleEditPlayer={this.handleEditPlayer}/>
                         </tbody>
                     </table>
                 </td>
