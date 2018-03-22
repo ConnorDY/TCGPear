@@ -1,3 +1,4 @@
+import $ from "jquery";
 import React from "react";
 import Players from "./players";
 
@@ -8,6 +9,7 @@ class WindowPlayers extends React.Component
         super(props);
         this.handleAddPlayer = this.handleAddPlayer.bind(this);
         this.handleEditPlayer = this.handleEditPlayer.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleAddPlayer()
@@ -21,11 +23,18 @@ class WindowPlayers extends React.Component
 
         this.firstNameInput.value = "";
         this.lastNameInput.value = "";
+
+        $("#playerFirstName").focus();
     }
 
     handleEditPlayer(id)
     {
         this.props.onShowPopupEditPlayer(id);
+    }
+
+    handleKeyPress(e)
+    {
+        if (e.which == 13) this.handleAddPlayer();
     }
 
     render()
@@ -39,7 +48,7 @@ class WindowPlayers extends React.Component
                     <input type="text" id="playerFirstName" ref={(input) => { this.firstNameInput = input; }} />
                     <br className="tall" />
                     Last Name:&nbsp;
-                    <input type="text" id="playerLastName" ref={(input) => { this.lastNameInput = input; }} />
+                    <input type="text" id="playerLastName" ref={(input) => { this.lastNameInput = input; }} onKeyUp={this.handleKeyPress} />
                     <br className="tall" />
                     <input type="button" value="Add" id="bAddPlayer" onClick={this.handleAddPlayer} />
                 </td>

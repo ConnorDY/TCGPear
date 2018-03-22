@@ -8,6 +8,7 @@ class PopupEditPlayer extends React.Component
         super(props);
         this.handleUpdatePlayer = this.handleUpdatePlayer.bind(this);
         this.handleDropPlayer = this.handleDropPlayer.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
 
         this.state = {
             firstName: "",
@@ -27,6 +28,11 @@ class PopupEditPlayer extends React.Component
     handleDropPlayer()
     {
         this.props.onDropPlayer(this.props.pid);
+    }
+
+    handleKeyPress(e)
+    {
+        if (e.which == 13) this.handleUpdatePlayer();
     }
 
     componentWillReceiveProps(nextProps)
@@ -52,10 +58,17 @@ class PopupEditPlayer extends React.Component
                 <div className="inner">
                     <div className="spacer1"></div>
                     First Name:&nbsp;
-                    <input type="text" id="editPlayerFirstName" value={firstName} onChange={(e) => this.setState({ firstName: e.target.value })} />
+                    <input
+                        type="text" id="editPlayerFirstName"
+                        value={firstName}
+                        onChange={(e) => this.setState({ firstName: e.target.value })} />
                     <br className="tall" />
                     Last Name:&nbsp;
-                    <input type="text" id="editPlayerLastName" value={lastName} onChange={(e) => this.setState({ lastName: e.target.value })} />
+                    <input
+                        type="text" id="editPlayerLastName"
+                        value={lastName}
+                        onChange={(e) => this.setState({ lastName: e.target.value })}
+                        onKeyPress={this.handleKeyPress} />
                     <br className="tall" />
                     <div className="spacer1"></div>
                     <center>
